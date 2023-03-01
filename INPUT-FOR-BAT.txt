@@ -1,0 +1,23 @@
+----------------------------------------------------------------------------------------
+|    Don't use any extra space anywhere
+|    LOG FILE path is only MANDATORY for 1 - RUN_TEST_BISYNC.bat
+|    FILTER_FILE_PATH is NOT MANDATORY FOR BOTH batch files
+|    Inputs are only acceptable in this manner
+----------------------------------------------------------------------------------------
+
+
+RCLONE_PATH=
+
+RCLONE_CONFIG_PATH=D:\Rclone_Bisync\RcloneConf
+
+BISYNC_WORKING_DIRECTORY=D:\Rclone_Bisync\Working_Directory
+
+RESYNC_YES_NO=NO
+
+SOU_RCE=
+
+DESTI_NATION=
+
+FILTERS_FILE_PATH=D:\Rclone_Bisync\Filters\exclusion.txt
+
+RCLONE_LOG_PATH=D:\Rclone_Bisync\log.txt
