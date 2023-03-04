@@ -22,8 +22,6 @@ for /f "tokens=1,2 delims==" %%a in (INPUT-FOR-BAT.txt) do (
     set "DESTI_NATION=%%b"
   ) else if "%%a" == "FILTERS_FILE_PATH" (
     set "FILTERS_FILE_PATH=%%b"
-  ) else if "%%a" == "RCLONE_LOG_PATH" (
-    set "RCLONE_LOG_PATH=%%b"
   )
 )
 
@@ -41,14 +39,11 @@ if not "x%RCLONE_CONFIG_PATH%"=="x" (
 			
 			if not "x%DESTI_NATION%"=="x" (
 			
-			if not "x%RCLONE_LOG_PATH%"=="x" (
 			echo All the Inputs are available
 			echo.
-			call :executeCommand
+			call :setVariables
+			call :checkDryRun
 			goto :ENDOFFILE
-		) else (
-			set /A COUNTER+=7
-		)
 			
 		) else (
 			set /A COUNTER+=6
@@ -80,18 +75,18 @@ echo Please provide the input and run the file again...
 goto :ENDOFFILE
 )
 
-:executeCommand
-echo If paths are valid you will be able to see the changes in your log file
-echo.
-set "LOCALAPPDATA=%BISYNC_WORKING_DIRECTORY%"
+:setVariables
+
+set "LOCALAPPDATA=%SYNC_WORKING_DIRECTORY%"
 set "PATH=%PATH%;%RCLONE_PATH%"
 set "APPDATA=%RCLONE_CONFIG_PATH%"
 
 if not "x%FILTERS_FILE_PATH%" == "x" (
 echo USING FILTERS FROM PATH %FILTERS_FILE_PATH%
 echo.
-set "FILTERS_FILE_PATH= --filters-file "%FILTERS_FILE_PATH%""
+set "FILTERS_FILE_PATH= --filter-from "%FILTERS_FILE_PATH%""
 )
+
 set "RESYNC="
 if "%RESYNC_YES_NO%"=="YES" (
 echo RESYNC IS ENABLED
@@ -104,11 +99,50 @@ echo.
 set "RESYNC= --resync"
 )
 
-set "RCLONE_LOG_PATH="%RCLONE_LOG_PATH%""
 set "SOU_RCE="%SOU_RCE%""
 set "DESTI_NATION="%DESTI_NATION%""
 
-rclone bisync --dry-run --log-file=%RCLONE_LOG_PATH% %SOU_RCE% %DESTI_NATION%%RESYNC% -v%FILTERS_FILE_PATH%
+goto :eof
+
+:checkDryRun
+
+echo Want to dry-run first before proceeding? (press y/n)
+set /p DRY_RUN=Your Answer :- 
+echo.
+
+if "%DRY_RUN%" == "y" (
+call :checkContinue
+) else if "%DRY_RUN%" == "n" (
+
+set "ARGU_MENT= -P"
+call :executeCommand
+
+) else (
+echo Invalid Input
+)
+goto :eof
+
+:checkContinue
+
+set "ARGU_MENT= --dry-run"
+call :executeCommand
+echo Do you feel continuing to make actual changes? (press y/n)
+set /p CONT_INUE=Your Answer :- 
+echo.
+
+if "%CONT_INUE%" == "y" (
+set "ARGU_MENT= -P"
+call :executeCommand
+)
+
+goto :eof
+
+:executeCommand
+
+rclone bisync%ARGU_MENT% %SOU_RCE% %DESTI_NATION%%RESYNC% -v%FILTERS_FILE_PATH% --remove-empty-dirs
+echo.
+
+goto :eof
 
 endlocal
 

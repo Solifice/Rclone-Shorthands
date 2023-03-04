@@ -14,10 +14,8 @@ BISYNC_WORKING_DIRECTORY=D:\Rclone_Shorthands\_Working_Directory_
 
 RESYNC_YES_NO=NO
 
-SOU_RCE=
+SOU_RCE=Gdrive Ishaan:_Important_\Individual\Ishaan\_GdriveEphemeral_\platform-tools
 
-DESTI_NATION=
+DESTI_NATION=D:\_ComputerEphemeral_\new
 
-FILTERS_FILE_PATH=D:\Bisync\filters.txt
-
-RCLONE_LOG_PATH=D:\Bisync\log.txt
+FILTERS_FILE_PATH=D:\Rclone_Shorthands\Bisync\filters.txt
