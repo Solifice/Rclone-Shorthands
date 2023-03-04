@@ -1,0 +1,19 @@
+----------------------------------------------------------------------------------------
+|    Don't use any extra space anywhere
+|    LOG FILE path is only MANDATORY for 1 - RUN_TEST_BISYNC.bat
+|    FILTER_FILE_PATH is NOT MANDATORY FOR BOTH batch files
+|    Inputs are only acceptable in this manner
+----------------------------------------------------------------------------------------
+
+
+RCLONE_PATH=C:\_MobileApps_\Rclone
+
+RCLONE_CONFIG_PATH=D:\Rclone_Shorthands\Delete\RcloneConf
+
+SYNC_WORKING_DIRECTORY=D:\Rclone_Shorthands\Delete\Working_Directory
+
+SOU_RCE=Gdrive Ishaan:_Important_\Individual\Ishaan\_GdriveEphemeral_\platform-tools\temp.docx
+
+FILTERS_FILE_PATH=D:\Rclone_Shorthands\Delete\Filters\exclusion.txt
+
+RCLONE_LOG_PATH=D:\Rclone_Shorthands\Delete\log.txt
