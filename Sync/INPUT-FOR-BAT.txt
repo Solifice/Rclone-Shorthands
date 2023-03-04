@@ -8,14 +8,14 @@
 
 RCLONE_PATH=
 
-RCLONE_CONFIG_PATH=D:\Rclone_Shorthands\Sync\RcloneConf
+RCLONE_CONFIG_PATH=D:\Rclone_Shorthands\_RcloneConf_
 
-SYNC_WORKING_DIRECTORY=D:\Rclone_Shorthands\Sync\Working_Directory
+SYNC_WORKING_DIRECTORY=D:\Rclone_Shorthands\_Working_Directory_
 
-SOU_RCE=ishaan:
+SOU_RCE=
 
 DESTI_NATION=
 
-FILTERS_FILE_PATH=D:\Rclone_Shorthands\Sync\Filters\exclusion.txt
+FILTERS_FILE_PATH=D:\Rclone_Shorthands\Sync\filters.txt
 
 RCLONE_LOG_PATH=D:\Rclone_Shorthands\Sync\log.txt

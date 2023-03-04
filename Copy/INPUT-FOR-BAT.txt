@@ -6,16 +6,16 @@
 ----------------------------------------------------------------------------------------
 
 
-RCLONE_PATH=C:\_MobileApps_\Rclone
+RCLONE_PATH=
 
-RCLONE_CONFIG_PATH=D:\Rclone_Shorthands\Copy\RcloneConf
+RCLONE_CONFIG_PATH=D:\Rclone_Shorthands\_RcloneConf_
 
-SYNC_WORKING_DIRECTORY=D:\Rclone_Shorthands\Copy\Working_Directory
+SYNC_WORKING_DIRECTORY=D:\Rclone_Shorthands\_Working_Directory_
 
-SOU_RCE=Gdrive Ishaan:_Important_\Individual\Ishaan\_GdriveEphemeral_
+SOU_RCE=
 
-DESTI_NATION=D:\_ComputerEphemeral_\new
+DESTI_NATION=
 
-FILTERS_FILE_PATH=D:\Rclone_Shorthands\Copy\Filters\exclusion.txt
+FILTERS_FILE_PATH=D:\Rclone_Shorthands\Copy\filters.txt
 
 RCLONE_LOG_PATH=D:\Rclone_Shorthands\Copy\log.txt

@@ -8,9 +8,9 @@
 
 RCLONE_PATH=
 
-RCLONE_CONFIG_PATH=D:\Bisync\RcloneConf
+RCLONE_CONFIG_PATH=D:\Rclone_Shorthands\_RcloneConf_
 
-BISYNC_WORKING_DIRECTORY=D:\Bisync\Working_Directory
+BISYNC_WORKING_DIRECTORY=D:\Rclone_Shorthands\_Working_Directory_
 
 RESYNC_YES_NO=NO
 
@@ -18,6 +18,6 @@ SOU_RCE=
 
 DESTI_NATION=
 
-FILTERS_FILE_PATH=D:\Bisync\Filters\exclusion.txt
+FILTERS_FILE_PATH=D:\Bisync\filters.txt
 
 RCLONE_LOG_PATH=D:\Bisync\log.txt
