@@ -87,13 +87,13 @@ echo.
 set "FILTERS_FILE_PATH= --filter-from "%FILTERS_FILE_PATH%""
 )
 
-set "RESYNC="
-if "%RESYNC_YES_NO%"=="YES" (
+if "%RESYNC_YES_NO%"=="Y" (
 echo RESYNC IS ENABLED
 echo.
 set "RESYNC= --resync"
 )
-if "%RESYNC_YES_NO%"=="yes" (
+
+if "%RESYNC_YES_NO%"=="y" (
 echo RESYNC IS ENABLED
 echo.
 set "RESYNC= --resync"

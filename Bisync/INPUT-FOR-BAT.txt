@@ -6,13 +6,13 @@
 ----------------------------------------------------------------------------------------
 
 
-RCLONE_PATH=
+RCLONE_PATH=C:\_MobileApps_\Rclone
 
 RCLONE_CONFIG_PATH=D:\Rclone_Shorthands\_RcloneConf_
 
 BISYNC_WORKING_DIRECTORY=D:\Rclone_Shorthands\_Working_Directory_
 
-RESYNC_YES_NO=NO
+RESYNC_YES_NO=n
 
 SOU_RCE=Gdrive Ishaan:_Important_\Individual\Ishaan\_GdriveEphemeral_\platform-tools
 
