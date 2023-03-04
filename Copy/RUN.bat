@@ -93,7 +93,7 @@ if "%DRY_RUN%" == "y" (
 call :checkContinue
 ) else if "%DRY_RUN%" == "n" (
 
-set "RCLONE_LOG_PATH= -P"
+set "ARGU_MENT= -P"
 call :executeCommand
 
 ) else (
@@ -103,14 +103,14 @@ goto :eof
 
 :checkContinue
 
-set "RCLONE_LOG_PATH= --dry-run"
+set "ARGU_MENT= --dry-run"
 call :executeCommand
 echo Do you feel continuing to make actual changes? (press y/n)
 set /p CONT_INUE=Your Answer :- 
 echo.
 
 if "%CONT_INUE%" == "y" (
-set "RCLONE_LOG_PATH= -P"
+set "ARGU_MENT= -P"
 call :executeCommand
 )
 
@@ -118,7 +118,7 @@ goto :eof
 
 :executeCommand
 
-rclone copy%RCLONE_LOG_PATH% %SOU_RCE% %DESTI_NATION% %FILTERS_FILE_PATH%
+rclone copy%ARGU_MENT% %SOU_RCE% %DESTI_NATION% %FILTERS_FILE_PATH%
 
 goto :eof
 
