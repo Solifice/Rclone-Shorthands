@@ -12,8 +12,8 @@ for /f "tokens=1,2 delims==" %%a in (INPUT-FOR-BAT.txt) do (
     set "RCLONE_PATH=%%b"
   ) else if "%%a" == "RCLONE_CONFIG_PATH" (
     set "RCLONE_CONFIG_PATH=%%b"
-  )  else if "%%a" == "SYNC_WORKING_DIRECTORY" (
-    set "SYNC_WORKING_DIRECTORY=%%b"
+  )  else if "%%a" == "WORKING_DIRECTORY" (
+    set "WORKING_DIRECTORY=%%b"
   ) else if "%%a" == "SOU_RCE" (
     set "SOU_RCE=%%b"
   ) else if "%%a" == "DESTI_NATION" (
@@ -29,7 +29,7 @@ if not "x%RCLONE_PATH%"=="x" (
 
 if not "x%RCLONE_CONFIG_PATH%"=="x" (
 
-	if not "x%SYNC_WORKING_DIRECTORY%"=="x" (
+	if not "x%WORKING_DIRECTORY%"=="x" (
 			
 			if not "x%SOU_RCE%"=="x" (
 			
@@ -69,7 +69,7 @@ goto :ENDOFFILE
 
 :setVariables
 
-set "LOCALAPPDATA=%SYNC_WORKING_DIRECTORY%"
+set "LOCALAPPDATA=%WORKING_DIRECTORY%"
 set "PATH=%PATH%;%RCLONE_PATH%"
 set "APPDATA=%RCLONE_CONFIG_PATH%"
 
