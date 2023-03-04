@@ -12,7 +12,7 @@ for /f "tokens=1,2 delims==" %%a in (INPUT-FOR-BAT.txt) do (
     set "RCLONE_PATH=%%b"
   ) else if "%%a" == "RCLONE_CONFIG_PATH" (
     set "RCLONE_CONFIG_PATH=%%b"
-  ) else if "%%a" == "SYNC_WORKING_DIRECTORY" (
+  )  else if "%%a" == "SYNC_WORKING_DIRECTORY" (
     set "SYNC_WORKING_DIRECTORY=%%b"
   ) else if "%%a" == "SOU_RCE" (
     set "SOU_RCE=%%b"
@@ -37,9 +37,9 @@ if not "x%RCLONE_CONFIG_PATH%"=="x" (
 			
 			echo All the Inputs are available
 			echo.
-			call :executeCommand
+			call :setVariables
+			call :checkDryRun
 			goto :ENDOFFILE
-			
 		) else (
 			set /A COUNTER+=5
 		)
@@ -51,6 +51,7 @@ if not "x%RCLONE_CONFIG_PATH%"=="x" (
 		) else (
 		set /A COUNTER+=3
 	) 
+	
 	) else (
 	set /A COUNTER+=2
 	)
@@ -65,9 +66,10 @@ echo Please provide the input and run the file again...
 goto :ENDOFFILE
 )
 
-:executeCommand
-set LOCALAPPDATA=%SYNC_WORKING_DIRECTORY%
-set PATH=%PATH%;%RCLONE_PATH%
+:setVariables
+
+set "LOCALAPPDATA=%SYNC_WORKING_DIRECTORY%"
+set "PATH=%PATH%;%RCLONE_PATH%"
 set "APPDATA=%RCLONE_CONFIG_PATH%"
 
 if not "x%FILTERS_FILE_PATH%" == "x" (
@@ -79,7 +81,46 @@ set "FILTERS_FILE_PATH= --filter-from "%FILTERS_FILE_PATH%""
 set "SOU_RCE="%SOU_RCE%""
 set "DESTI_NATION="%DESTI_NATION%""
 
-rclone copy -P %SOU_RCE% %DESTI_NATION% %FILTERS_FILE_PATH%
+goto :eof
+
+:checkDryRun
+
+echo Want to dry-run first before proceeding? (press y/n)
+set /p DRY_RUN=Your Answer :- 
+echo.
+
+if "%DRY_RUN%" == "y" (
+call :checkContinue
+) else if "%DRY_RUN%" == "n" (
+
+set "RCLONE_LOG_PATH= -P"
+call :executeCommand
+
+) else (
+echo Invalid Input
+)
+goto :eof
+
+:checkContinue
+
+set "RCLONE_LOG_PATH= --dry-run"
+call :executeCommand
+echo Do you feel continuing to make actual changes? (press y/n)
+set /p CONT_INUE=Your Answer :- 
+echo.
+
+if "%CONT_INUE%" == "y" (
+set "RCLONE_LOG_PATH= -P"
+call :executeCommand
+)
+
+goto :eof
+
+:executeCommand
+
+rclone copy%RCLONE_LOG_PATH% %SOU_RCE% %DESTI_NATION% %FILTERS_FILE_PATH%
+
+goto :eof
 
 endlocal
 

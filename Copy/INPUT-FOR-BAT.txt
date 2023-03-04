@@ -17,5 +17,3 @@ SOU_RCE=
 DESTI_NATION=
 
 FILTERS_FILE_PATH=D:\Rclone_Shorthands\Copy\filters.txt
-
-RCLONE_LOG_PATH=D:\Rclone_Shorthands\Copy\log.txt
