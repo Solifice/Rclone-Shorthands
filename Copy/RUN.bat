@@ -119,6 +119,7 @@ goto :eof
 :executeCommand
 
 rclone copy%ARGU_MENT% %SOU_RCE% %DESTI_NATION% %FILTERS_FILE_PATH%
+echo.
 
 goto :eof
 
