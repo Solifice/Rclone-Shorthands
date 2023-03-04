@@ -12,8 +12,8 @@ for /f "tokens=1,2 delims==" %%a in (INPUT-FOR-BAT.txt) do (
     set "RCLONE_PATH=%%b"
   ) else if "%%a" == "RCLONE_CONFIG_PATH" (
     set "RCLONE_CONFIG_PATH=%%b"
-  )  else if "%%a" == "SYNC_WORKING_DIRECTORY" (
-    set "SYNC_WORKING_DIRECTORY=%%b"
+  )  else if "%%a" == "WORKING_DIRECTORY" (
+    set "WORKING_DIRECTORY=%%b"
   )
 )
 
@@ -23,10 +23,11 @@ if not "x%RCLONE_PATH%"=="x" (
 
 if not "x%RCLONE_CONFIG_PATH%"=="x" (
 
-	if not "x%SYNC_WORKING_DIRECTORY%"=="x" (
+	if not "x%WORKING_DIRECTORY%"=="x" (
 			
 			echo All the Inputs are available
 			echo.
+			call :setVariables
 			call :executeCommand
 			goto :ENDOFFILE
 		
@@ -48,14 +49,20 @@ echo Please provide the input and run the file again...
 goto :ENDOFFILE
 )
 
-:executeCommand
-echo If paths are valid you will be able to see the changes in your log file
-echo.
-set "LOCALAPPDATA=%SYNC_WORKING_DIRECTORY%"
+:setVariables
+
+set "LOCALAPPDATA=%WORKING_DIRECTORY%"
 set "PATH=%PATH%;%RCLONE_PATH%"
 set "APPDATA=%RCLONE_CONFIG_PATH%"
 
+goto :eof
+
+:executeCommand
+
 cmd /k
+echo.
+
+goto :eof
 
 endlocal
 
