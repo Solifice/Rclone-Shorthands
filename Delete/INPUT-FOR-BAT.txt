@@ -10,10 +10,8 @@ RCLONE_PATH=
 
 RCLONE_CONFIG_PATH=D:\Rclone_Shorthands\_RcloneConf_
 
-SYNC_WORKING_DIRECTORY=D:\Rclone_Shorthands\_Working_Directory_
+WORKING_DIRECTORY=D:\Rclone_Shorthands\_Working_Directory_
 
 SOU_RCE=
 
 FILTERS_FILE_PATH=D:\Rclone_Shorthands\Delete\filters.txt
-
-RCLONE_LOG_PATH=D:\Rclone_Shorthands\Delete\log.txt

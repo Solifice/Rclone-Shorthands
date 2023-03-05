@@ -12,10 +12,8 @@ for /f "tokens=1,2 delims==" %%a in (INPUT-FOR-BAT.txt) do (
     set "RCLONE_PATH=%%b"
   ) else if "%%a" == "RCLONE_CONFIG_PATH" (
     set "RCLONE_CONFIG_PATH=%%b"
-  ) else if "%%a" == "SYNC_WORKING_DIRECTORY" (
-    set "SYNC_WORKING_DIRECTORY=%%b"
-  ) else if "%%a" == "SOU_RCE" (
-    set "SOU_RCE=%%b"
+  )  else if "%%a" == "WORKING_DIRECTORY" (
+    set "WORKING_DIRECTORY=%%b"
   )
 )
 
@@ -25,22 +23,18 @@ if not "x%RCLONE_PATH%"=="x" (
 
 if not "x%RCLONE_CONFIG_PATH%"=="x" (
 
-	if not "x%SYNC_WORKING_DIRECTORY%"=="x" (
-			
-			if not "x%SOU_RCE%"=="x" (
+	if not "x%WORKING_DIRECTORY%"=="x" (
 			
 			echo All the Inputs are available
 			echo.
+			call :setVariables
 			call :executeCommand
 			goto :ENDOFFILE
-			
-		) else (
-			set /A COUNTER+=4
-		)
 		
 		) else (
 		set /A COUNTER+=3
 	) 
+	
 	) else (
 	set /A COUNTER+=2
 	)
@@ -55,14 +49,20 @@ echo Please provide the input and run the file again...
 goto :ENDOFFILE
 )
 
-:executeCommand
-set LOCALAPPDATA=%SYNC_WORKING_DIRECTORY%
-set PATH=%PATH%;%RCLONE_PATH%
+:setVariables
+
+set "LOCALAPPDATA=%WORKING_DIRECTORY%"
+set "PATH=%PATH%;%RCLONE_PATH%"
 set "APPDATA=%RCLONE_CONFIG_PATH%"
 
-set "SOU_RCE="%SOU_RCE%""
+goto :eof
 
-rclone purge -i %SOU_RCE%
+:executeCommand
+
+cmd /k
+echo.
+
+goto :eof
 
 endlocal
 

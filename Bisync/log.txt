@@ -1,4 +1,0 @@
-2023/03/01 18:14:32 NOTICE: Config file "D:\\Sync Configurations\\RcloneConf\\rclone\\rclone.conf" not found - using defaults
-2023/03/01 18:14:32 Failed to create file system for "ishaan:_Important_\\Individual\\Ishaan": didn't find section in config file
-2023/03/01 18:16:37 NOTICE: Config file "D:\\Sync Configurations\\RcloneConf\\rclone\\rclone.conf" not found - using defaults
-2023/03/01 18:16:37 Failed to create file system for "ishaan:_Important_\\Individual\\Ishaan": didn't find section in config file
