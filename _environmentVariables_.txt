@@ -1,0 +1,5 @@
+RCLONE_PATH=
+
+RCLONE_CONFIG_PATH=D:\Rclone_Shorthands\_RcloneConf_
+
+WORKING_DIRECTORY=D:\Rclone_Shorthands\_Working_Directory_

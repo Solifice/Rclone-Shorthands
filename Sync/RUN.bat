@@ -1,25 +1,30 @@
 @echo off
 setlocal enabledelayedexpansion
 
-if not exist INPUT-FOR-BAT.txt (
-  echo Error: INPUT-FOR-BAT.txt file does not exist.
-  echo Please create the INPUT-FOR-BAT.txt file with your desired details at location %CD%
-  goto :ENDOFFILE
+set "FILE_NAME=_environmentVariables_.txt"
+set "PROFILE_NAME=_profileSettings_.txt"
+set "SEARCHPATH=%~dp0"
+
+for %%I in ("%SEARCHPATH%..") do set "PARENTPATH=%%~fI"
+echo Parent directory: %PARENTPATH%
+
+set "R_CLONE="%PARENTPATH%\%FILE_NAME%""
+
+if not exist %R_CLONE% (
+
+echo Error: %FILE_NAME% file does not exist.
+echo Please download the file from Git Repo and after saving the values place the file to path %PARENTPATH%.
+goto :ENDOFFILE
+
 )
 
-for /f "tokens=1,2 delims==" %%a in (INPUT-FOR-BAT.txt) do (
+for /f "usebackq tokens=1,2 delims==" %%a in (%R_CLONE%) do (
   if "%%a" == "RCLONE_PATH" (
     set "RCLONE_PATH=%%b"
   ) else if "%%a" == "RCLONE_CONFIG_PATH" (
     set "RCLONE_CONFIG_PATH=%%b"
   )  else if "%%a" == "WORKING_DIRECTORY" (
     set "WORKING_DIRECTORY=%%b"
-  ) else if "%%a" == "SOU_RCE" (
-    set "SOU_RCE=%%b"
-  ) else if "%%a" == "DESTI_NATION" (
-    set "DESTI_NATION=%%b"
-  ) else if "%%a" == "FILTERS_FILE_PATH" (
-    set "FILTERS_FILE_PATH=%%b"
   )
 )
 
@@ -30,25 +35,7 @@ if not "x%RCLONE_PATH%"=="x" (
 if not "x%RCLONE_CONFIG_PATH%"=="x" (
 
 	if not "x%WORKING_DIRECTORY%"=="x" (
-			
-			if not "x%SOU_RCE%"=="x" (
-			
-			if not "x%DESTI_NATION%"=="x" (
-			
-			echo All the Inputs are available
-			echo.
-			call :setVariables
-			call :checkDryRun
-			goto :ENDOFFILE
-			
-		) else (
-			set /A COUNTER+=5
-		)
-			
-		) else (
-			set /A COUNTER+=4
-		)
-		
+	echo working
 		) else (
 		set /A COUNTER+=3
 	) 
@@ -61,9 +48,74 @@ if not "x%RCLONE_CONFIG_PATH%"=="x" (
 	)
 
 if %COUNTER% GTR 0 (
-echo Please check your input.txt file
-echo Mandatory Inputs are not given
+echo Please check your %FILE_NAME% file.
+echo These are mandatory inputs.
 echo Please provide the input and run the file again...
+goto :ENDOFFILE
+)
+
+set i=0
+for /d %%A in ("%SEARCHPATH%\*") do (
+  if exist "%%~A\%PROFILE_NAME%" (
+    set /a i+=1
+    set "folder[!i!]=%%~nxA"
+    echo !i!. %%~nxA
+  )
+)
+
+if %i% equ 0 (
+  echo No Folders with Profiles found.
+  goto :ENDOFFILE
+)
+
+:select
+set /p choice="Enter the number of the folder you want to select: "
+
+if not defined choice goto :ENDOFFILE
+
+if not defined folder[%choice%] (
+  echo Invalid choice. Please try again.
+  goto select
+)
+
+echo You selected: %SEARCHPATH%!folder[%choice%]!
+set "INPUT_BAT="%SEARCHPATH%!folder[%choice%]!\%PROFILE_NAME%""
+echo %INPUT_BAT%
+
+for /f "usebackq tokens=1,2 delims==" %%a in (%INPUT_BAT%) do (
+  if "%%a" == "SOU_RCE" (
+    set "SOU_RCE=%%b"
+  ) else if "%%a" == "DESTI_NATION" (
+    set "DESTI_NATION=%%b"
+  )
+)
+
+set /A COUNT=0
+			
+if not "x%SOU_RCE%"=="x" (
+			
+if not "x%DESTI_NATION%"=="x" (
+			
+echo All the Inputs are available
+echo.
+call :setVariables
+call :checkDryRun
+goto :ENDOFFILE
+			
+) else (
+
+set /A COUNT+=2
+
+)
+) else (
+
+set /A COUNT+=1
+
+)
+
+if %COUNT% GTR 0 (
+echo It seems the profile you created %PROFILE_NAME% is not provided with required valued
+echo Please provide the inputs and run the file again...
 goto :ENDOFFILE
 )
 
@@ -72,12 +124,17 @@ goto :ENDOFFILE
 set "LOCALAPPDATA=%WORKING_DIRECTORY%"
 set "PATH=%PATH%;%RCLONE_PATH%"
 set "APPDATA=%RCLONE_CONFIG_PATH%"
+set "FILTERS_FILE_PATH="%SEARCHPATH%!folder[%choice%]!\_filters_.txt""
 
-if not "x%FILTERS_FILE_PATH%" == "x" (
-echo USING FILTERS FROM PATH %FILTERS_FILE_PATH%
-echo.
-set "FILTERS_FILE_PATH= --filter-from "%FILTERS_FILE_PATH%""
+if exist %FILTERS_FILE_PATH% (
+  echo Filters Found
+  echo Applying Filters
+  set "FILTERS_FILE_PATH= --filter-from %FILTERS_FILE_PATH%"
+) else (
+echo There are no filters to apply
 )
+
+echo.
 
 set "SOU_RCE="%SOU_RCE%""
 set "DESTI_NATION="%DESTI_NATION%""
@@ -119,7 +176,7 @@ goto :eof
 
 :executeCommand
 
-rclone sync%ARGU_MENT% %SOU_RCE% %DESTI_NATION% %FILTERS_FILE_PATH%
+rclone sync%ARGU_MENT% %SOU_RCE% %DESTI_NATION%%FILTERS_FILE_PATH%
 echo.
 
 goto :eof

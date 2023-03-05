@@ -5,17 +5,6 @@
 |    Inputs are only acceptable in this manner
 ----------------------------------------------------------------------------------------
 
-
-RCLONE_PATH=
-
-RCLONE_CONFIG_PATH=D:\Rclone_Shorthands\_RcloneConf_
-
-WORKING_DIRECTORY=D:\Rclone_Shorthands\_Working_Directory_
-
 SOU_RCE=
 
 DESTI_NATION=
-
-FILTERS_FILE_PATH=D:\Rclone_Shorthands\Sync\filters.txt
-
-RCLONE_LOG_PATH=D:\Rclone_Shorthands\Sync\log.txt
